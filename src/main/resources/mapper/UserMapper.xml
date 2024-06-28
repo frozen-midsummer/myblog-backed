@@ -3,11 +3,17 @@
 <mapper namespace="com.wjx.mapper.UserMapper">
 
     <select id="findAllUsers" resultMap="UsernamePassword">
-        select * from users
+        select username,password from users
     </select>
+    <select id="findByUsername" resultMap="UsernamePassword">
+        select username,password from users where username=#{username}
+    </select>
+    <insert id="save">
+        INSERT INTO users(username, password)
+        VALUES(#{username}, #{password})
+    </insert>
     <resultMap id="UsernamePassword" type="com.wjx.entity.User">
         <id property="username" column="username"/>
         <result property="password" column="password"/>
     </resultMap>
-
 </mapper>

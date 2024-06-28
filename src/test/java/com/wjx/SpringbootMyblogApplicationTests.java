@@ -32,4 +32,9 @@ class SpringbootMyblogApplicationTests {
     void passwordEncoded(){
         System.out.println(passwordEncoder.encode("Wangjiaxuan12"));
     }
+    @Test
+    void findByUsername(){
+        System.out.println(userMapper.findByUsername("admin"));
+    }
+
 }

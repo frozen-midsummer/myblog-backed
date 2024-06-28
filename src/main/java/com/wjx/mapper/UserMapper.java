@@ -8,4 +8,6 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
     List<User> findAllUsers();
+    User findByUsername(String username);
+    void save(User user);
 }
