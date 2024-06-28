@@ -1,4 +1,4 @@
-package com.wjx.service;
+package com.wjx.config;
 
 import com.wjx.entity.User;
 import com.wjx.mapper.UserMapper;

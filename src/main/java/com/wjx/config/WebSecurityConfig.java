@@ -1,9 +1,6 @@
 package com.wjx.config;
 
 // 导入必要的依赖
-import com.wjx.service.CustomAuthenticationProvider;
-import com.wjx.service.CustomUserDetailsService;
-import com.wjx.utils.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,8 +19,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private CustomUserDetailsService userDetailsService; // 用户信息服务，用于加载用户详情
-    @Autowired
-    private CustomAuthenticationProvider customAuthenticationProvider;
+    // 不需要这样显示的注入customAuthenticationProvider，因为配置了AuthenticationManager，调用authenticationManager.authenticate
+    // 的时候会自动取调CustomUserDetailsService.loadUserByUsername的
+    /* @FIXME
+    private CustomAuthenticationProvider customAuthenticationProvider;*/
     @Autowired
     private JwtRequestFilter jwtRequestFilter; // JWT请求过滤器，用于处理Token验证
 
@@ -34,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService) // 使用自定义的UserDetailsService
                 .passwordEncoder(passwordEncoder()); // 使用BCryptPasswordEncoder进行密码加密
-        auth.authenticationProvider(customAuthenticationProvider);
+//        auth.authenticationProvider(customAuthenticationProvider);
     }
     /**
      * 配置密码编码器

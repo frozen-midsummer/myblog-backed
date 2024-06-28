@@ -16,6 +16,7 @@ import java.util.function.Function;
 public class JwtTokenUtil {
     private static final long EXPIRATION_TIME = 864_000_000; // 10天
     private static final String SECRET_KEY = "yourSecretKey"; // 应该在安全的地方存储
+    // 生成512位密钥
     private static final Key signingKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
     public static String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
