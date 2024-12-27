@@ -1,14 +1,12 @@
 package com.wjx;
 
-import com.wjx.config.CustomUserDetailsService;
-import com.wjx.dto.UserDto;
+import com.wjx.service.CustomUserDetailsService;
+import com.wjx.dto.UserDTO;
 import com.wjx.entity.User;
 import com.wjx.entity.UserTasks;
 import com.wjx.mapper.UserMapper;
 import com.wjx.mapper.UserTasksMapper;
 import com.wjx.service.UserService;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.security.Key;
 import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.Date;
@@ -78,7 +75,7 @@ class SpringbootMyblogApplicationTests {
     }
     @Test
     void register(){
-        UserDto userDto = new UserDto();
+        UserDTO userDto = new UserDTO();
         userDto.setUsername("test1");
         userDto.setPassword("123456");
         userService.register(userDto);

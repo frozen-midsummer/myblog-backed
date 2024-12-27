@@ -1,5 +1,6 @@
-package com.wjx.config;
+package com.wjx.config.jwt;
 
+import com.wjx.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;

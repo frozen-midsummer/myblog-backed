@@ -1,6 +1,7 @@
-package com.wjx.config;
+package com.wjx.config.jwt;
 
-// 导入必要的依赖
+import com.wjx.config.jwt.JwtRequestFilter;
+import com.wjx.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,10 +20,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private CustomUserDetailsService userDetailsService; // 用户信息服务，用于加载用户详情
-    // 不需要这样显示的注入customAuthenticationProvider，因为配置了AuthenticationManager，调用authenticationManager.authenticate
-    // 的时候会自动取调CustomUserDetailsService.loadUserByUsername的
-    /* @FIXME
-    private CustomAuthenticationProvider customAuthenticationProvider;*/
     @Autowired
     private JwtRequestFilter jwtRequestFilter; // JWT请求过滤器，用于处理Token验证
 
@@ -33,7 +30,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService) // 使用自定义的UserDetailsService
                 .passwordEncoder(passwordEncoder()); // 使用BCryptPasswordEncoder进行密码加密
-//        auth.authenticationProvider(customAuthenticationProvider);
     }
     /**
      * 配置密码编码器
@@ -60,12 +56,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity
                 .csrf().disable() // 禁用CSRF保护，根据实际情况可能需要调整
                 .authorizeRequests() // 开始配置请求授权规则
-                .antMatchers("/api/authenticate").permitAll() // 允许所有人访问/authenticate端点
+                .antMatchers("/api/authenticate","/test/testsemaphore").permitAll() // 允许所有人访问/authenticate端点
                 .anyRequest().authenticated() // 其他所有请求都需要认证
                 .and()
                 .sessionManagement() // 配置会话管理
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS); // 设置为无状态，适用于JWT
-
 //         添加JWT请求过滤器到过滤链中
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }

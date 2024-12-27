@@ -1,6 +1,6 @@
 package com.wjx.service;
 
-import com.wjx.dto.UserDto;
+import com.wjx.dto.UserDTO;
 import com.wjx.entity.User;
 import com.wjx.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public void register(UserDto registrationRequest) {
+    public void register(UserDTO registrationRequest) {
         User user = new User();
         user.setUsername(registrationRequest.getUsername());
         user.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));

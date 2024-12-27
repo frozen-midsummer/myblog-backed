@@ -1,9 +1,10 @@
-package com.wjx.entity;
+package com.wjx.dto;
 
+import com.wjx.common.dto.DTO;
 import lombok.Data;
 
 @Data
-public class User {
+public class UserDTO extends DTO {
     private String username;
     private String password;
 }
