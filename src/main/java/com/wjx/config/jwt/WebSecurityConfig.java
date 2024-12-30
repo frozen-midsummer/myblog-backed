@@ -14,6 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 @Configuration
 @EnableWebSecurity // 启用Web安全支持
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -31,6 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService) // 使用自定义的UserDetailsService
                 .passwordEncoder(passwordEncoder()); // 使用BCryptPasswordEncoder进行密码加密
     }
+
     /**
      * 配置密码编码器
      */
@@ -56,7 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity
                 .csrf().disable() // 禁用CSRF保护，根据实际情况可能需要调整
                 .authorizeRequests() // 开始配置请求授权规则
-                .antMatchers("/api/authenticate","/test/testsemaphore").permitAll() // 允许所有人访问/authenticate端点
+                .antMatchers("/api/authenticate", "/user/register", "/test/testsemaphore").permitAll() // 允许所有人访问/authenticate端点
                 .anyRequest().authenticated() // 其他所有请求都需要认证
                 .and()
                 .sessionManagement() // 配置会话管理

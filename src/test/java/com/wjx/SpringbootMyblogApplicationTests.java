@@ -1,7 +1,7 @@
 package com.wjx;
 
 import com.wjx.service.CustomUserDetailsService;
-import com.wjx.dto.UserDTO;
+import com.wjx.dto.UserDO;
 import com.wjx.entity.User;
 import com.wjx.entity.UserTasks;
 import com.wjx.mapper.UserMapper;
@@ -75,9 +75,7 @@ class SpringbootMyblogApplicationTests {
     }
     @Test
     void register(){
-        UserDTO userDto = new UserDTO();
-        userDto.setUsername("test1");
-        userDto.setPassword("123456");
+        UserDO userDto = new UserDO("test1","123456");
         userService.register(userDto);
     }
     @Test
