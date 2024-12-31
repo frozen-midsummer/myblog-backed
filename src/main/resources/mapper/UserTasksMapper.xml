@@ -5,13 +5,13 @@
     <select id="findAllTasksByUserName" resultMap="UserTask">
         select * from usertasks where username=#{username}
     </select>
-    <insert id="insertUserTask" parameterType="com.wjx.entity.UserTasks">
+    <insert id="insertUserTask" parameterType="com.wjx.entity.UserTaskDO">
         INSERT INTO usertasks
         (username, createdTime, updatedTime, deadline, description, alarm)
         VALUES
         (#{username}, #{createdTime}, #{updatedTime}, #{deadline}, #{description}, #{alarm})
     </insert>
-    <resultMap id="UserTask" type="com.wjx.entity.UserTasks">
+    <resultMap id="UserTask" type="com.wjx.entity.UserTaskDO">
         <id property="taskId" column="taskid" jdbcType="INTEGER"/>
         <result property="username" column="username" jdbcType="VARCHAR"/>
         <result property="createdTime" column="createdTime" jdbcType="VARCHAR"/>

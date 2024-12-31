@@ -16,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 
 @Configuration
 public class JwtRequestFilter extends OncePerRequestFilter {
@@ -30,11 +31,16 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
         // 允许OPTIONS请求无条件通过
-        if (request.getMethod().equals("OPTIONS")) {
+        if (Arrays.asList("OPTIONS").contains(request.getMethod())) {
             response.setStatus(HttpServletResponse.SC_OK);
-            response.setHeader("Access-Control-Allow-Origin","*");
-            response.setHeader("Access-Control-Allow-Headers","*");
+            response.setHeader("Access-Control-Allow-Origin", "*");
+            response.setHeader("Access-Control-Allow-Headers", "*");
             return;
+        }
+        // 给其他复杂请求跨域
+        if (Arrays.asList("POST").contains(request.getMethod())) {
+            response.setHeader("Access-Control-Allow-Origin", "*");
+            response.setHeader("Access-Control-Allow-Headers", "*");
         }
         final String requestTokenHeader = request.getHeader("Authorization");
 
