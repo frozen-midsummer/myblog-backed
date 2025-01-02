@@ -1,12 +1,17 @@
-CREATE TABLE UserTasks (
+CREATE TABLE usertasks (
+    task_id BIGINT NOT NULL,
     username VARCHAR(255) NOT NULL,
-    createdTime DATETIME,
-    updatedTime DATETIME,
+    created_time DATETIME,
+    updated_time DATETIME,
     deadline DATETIME,
     description VARCHAR(255),
     alarm VARCHAR(255),
-    PRIMARY KEY (username)
+    PRIMARY KEY (task_id)
 )
 
-ALTER TABLE usertasks
-ADD COLUMN taskid INT AUTO_INCREMENT PRIMARY KEY;
+CREATE TABLE users (
+    id BIGINT NOT NULL,
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+)

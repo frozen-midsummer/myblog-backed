@@ -22,7 +22,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String username = authentication.getName();
         String password = authentication.getCredentials().toString();
 
-        // 这里应该使用实际的服务来从数据库加载用户信息
+        // 从数据库加载用户信息
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
         if (!Objects.equals(password, userDetails.getPassword())) {

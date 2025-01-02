@@ -1,9 +1,7 @@
-package com.wjx.entity;
-
+package com.wjx.dto;
 import lombok.Data;
-
 @Data
-public class User {
+public class LoginCmd {
     private String username;
     private String password;
 }

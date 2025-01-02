@@ -18,7 +18,7 @@ import java.util.function.Function;
 
 @Component
 public class JwtTokenUtil {
-
+    //通过配置类导入application.yml中的Jwt相关配置
     private final JwtAppConfig appConfig;
     private Key signingKey;
 

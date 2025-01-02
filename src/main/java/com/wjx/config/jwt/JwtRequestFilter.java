@@ -42,12 +42,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             response.setHeader("Access-Control-Allow-Origin", "*");
             response.setHeader("Access-Control-Allow-Headers", "*");
         }
+
         final String requestTokenHeader = request.getHeader("Authorization");
 
         String username = null;
         String jwtToken = null;
 
-        if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
+        if (!request.getRequestURI().contains("/user/register") && requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
             jwtToken = requestTokenHeader.substring(7);
             try {
                 username = jwtTokenUtil.getUsernameFromToken(jwtToken);

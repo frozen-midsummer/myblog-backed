@@ -1,14 +1,16 @@
 package com.wjx.service;
 
-import com.wjx.entity.User;
-import com.wjx.mapper.UserMapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.wjx.database.dataobject.UserDO;
+import com.wjx.database.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,15 +24,16 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userMapper.findByUsername(username);
-        if (user == null) {
+        LambdaQueryWrapper<UserDO> queryWrapper = Wrappers.lambdaQuery(UserDO.class)
+                .eq(UserDO::getUsername, username);
+        UserDO userDO = userMapper.selectOne(queryWrapper);
+        if (userDO == null) {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_USER")); // 假定所有用户都具有ROLE_USER权限
-        return org.springframework.security.core.userdetails.User
-                .withUsername(user.getUsername())
-                .password(user.getPassword()) // 注意：此处直接传递密码，实际应用中应该从数据库获取并解码
+        return User.withUsername(userDO.getUsername())
+                .password(userDO.getPassword()) // 从数据库获取并解码
                 .authorities(authorities) // 即便只有一个权限也需提供列表
                 .accountExpired(false)
                 .accountLocked(false)

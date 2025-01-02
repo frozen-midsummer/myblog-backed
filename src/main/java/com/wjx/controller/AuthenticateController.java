@@ -3,8 +3,7 @@ package com.wjx.controller;
 import com.wjx.common.result.ApiResult;
 import com.wjx.common.rpc.BaseService;
 import com.wjx.dto.ValidateTokenQry;
-import com.wjx.entity.AuthRequest;
-import com.wjx.entity.AuthResponse;
+import com.wjx.dto.LoginCmd;
 import com.wjx.service.CustomUserDetailsService;
 import com.wjx.utils.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/token")
 public class AuthenticateController extends BaseService {
 
     @Autowired
@@ -31,14 +30,14 @@ public class AuthenticateController extends BaseService {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    @PostMapping("/authenticate")
-    public ResponseEntity<ApiResult<String>> createAuthenticationToken(@RequestBody AuthRequest authenticationRequest) throws Exception {
+    @PostMapping("/login")
+    public ResponseEntity<ApiResult<String>> createAuthenticationToken(@RequestBody LoginCmd loginCmd) throws Exception {
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword()));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginCmd.getUsername(), loginCmd.getPassword()));
         } catch (BadCredentialsException e) {
             throw new Exception("Incorrect username or password", e);
         }
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(loginCmd.getUsername());
         final String jwt = jwtTokenUtil.generateToken(userDetails);
         return ResponseEntity.ok(ok(jwt));
     }

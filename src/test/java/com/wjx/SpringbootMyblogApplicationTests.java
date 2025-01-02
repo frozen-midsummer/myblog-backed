@@ -1,11 +1,11 @@
 package com.wjx;
 
+import com.wjx.dto.UserDTO;
 import com.wjx.service.CustomUserDetailsService;
-import com.wjx.dto.UserDO;
-import com.wjx.entity.User;
-import com.wjx.entity.UserTaskDO;
-import com.wjx.mapper.UserMapper;
-import com.wjx.mapper.UserTasksMapper;
+import com.wjx.database.dataobject.UserDO;
+import com.wjx.database.dataobject.UserTaskDO;
+import com.wjx.database.mapper.UserMapper;
+import com.wjx.database.mapper.UserTasksMapper;
 import com.wjx.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +18,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.Base64;
-import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -37,16 +36,11 @@ class SpringbootMyblogApplicationTests {
     private UserService userService;
 
     @Test
-    void findAllUsers() {
-        System.out.println(userMapper.findAllUsers());
-    }
-
-    @Test
     void build() {
-        User user = new User();
-        user.setUsername("wjx");
-        user.setPassword("12546");
-        System.out.println(user.toString());
+        UserDO userDO = new UserDO();
+        userDO.setUsername("wjx");
+        userDO.setPassword("12546");
+        System.out.println(userDO.toString());
     }
 
     @Test
@@ -55,33 +49,9 @@ class SpringbootMyblogApplicationTests {
     }
 
     @Test
-    void findByUsername() {
-        System.out.println(userMapper.findByUsername("admin"));
-    }
-
-    @Test
     void loadUserByUsername() {
         UserDetails userDetails = userDetailsService.loadUserByUsername("admin");
         System.out.println(userDetails);
-    }
-
-    @Test
-    void insertUserTask() {
-        UserTaskDO task = new UserTaskDO("test1", LocalDateTime.now(), LocalDateTime.now(), LocalDateTime.now(), "This is a fake task description.", "REMINDER");
-        task.setUsername("test1"); // 假设username需唯一
-        boolean isInserted = userTasksMapper.insertUserTask(task) > 0;
-        assertTrue(isInserted, "插入假数据失败");
-    }
-
-    @Test
-    void findAllTasksByUserName() {
-        System.out.println(userTasksMapper.findAllTasksByUserName("test1"));
-    }
-
-    @Test
-    void register() {
-        UserDO userDto = new UserDO("test1", "123456");
-        userService.register(userDto);
     }
 
     @Test
