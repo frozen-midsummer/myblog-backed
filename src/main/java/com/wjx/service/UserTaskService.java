@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class UserTaskService {
     public void ModifyTask(UserTaskDO userTaskDO, UserTaskUpdateCmd updateCmd) {
         userTaskDO.setUpdatedTime(LocalDateTime.now());
-        userTaskDO.setDeadline(updateCmd.getDeadline());
+        userTaskDO.setDeadline(updateCmd.getDeadline().plusHours(8L));
         userTaskDO.setDescription(updateCmd.getDescription());
         userTaskDO.setAlarm(updateCmd.getAlarm());
     }
