@@ -72,7 +72,7 @@ public class UserDataController extends BaseService {
         if (username == null) {
             throw new Exception("无效的token");
         }
-        UserTaskDO res = new UserTaskDO(SnowflakeIdGenerator.newSnowflakeId(), username, LocalDateTime.now(), LocalDateTime.now(), createCmd.getDeadline(), createCmd.getDescription(), createCmd.getAlarm());
+        UserTaskDO res = new UserTaskDO(SnowflakeIdGenerator.newSnowflakeId(), username, LocalDateTime.now(), LocalDateTime.now(), createCmd.getDeadline().plusHours(8L), createCmd.getDescription(), createCmd.getAlarm());
         userTasksMapper.insert(res);
         return ResponseEntity.ok(ok(userTaskConvertor.toDataTransferObj(res)));
     }

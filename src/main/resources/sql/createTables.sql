@@ -15,3 +15,10 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 )
+
+CREATE TABLE china_city_code (
+    name VARCHAR(255) NOT NULL,
+    ad_code int NOT NULL,
+    city_code int,
+    PRIMARY KEY (ad_code)
+)
