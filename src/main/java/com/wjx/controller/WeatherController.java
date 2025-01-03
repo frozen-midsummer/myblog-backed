@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @CrossOrigin
@@ -41,7 +42,10 @@ public class WeatherController extends BaseService {
         LambdaQueryWrapper<ChinaCityCodeDO> queryWrapper = Wrappers.lambdaQuery(ChinaCityCodeDO.class)
                 .likeRight(ChinaCityCodeDO::getAdCode, adCode);
         queryWrapper.and(s -> s.notLikeLeft(ChinaCityCodeDO::getAdCode, "0000"));
-        queryWrapper.and(s -> s.likeLeft(ChinaCityCodeDO::getAdCode, "00"));
+        //直辖市数组
+        if (!Arrays.asList("11", "12", "31", "50", "71", "81", "82").contains(adCode)) {
+            queryWrapper.and(s -> s.likeLeft(ChinaCityCodeDO::getAdCode, "00"));
+        }
         List<ChinaCityCodeDO> res = chinaCityCodeMapper.selectList(queryWrapper);
         List<ChinaCityCodeDTO> result = chinaCityCodeConvertor.toDataTransferObjList(res);
         return ResponseEntity.ok(ok(result));
