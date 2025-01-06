@@ -11,6 +11,7 @@ import net.sf.jsqlparser.expression.DateTimeLiteralExpression;
 import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 @Data
@@ -30,7 +31,7 @@ public class UserTaskDO {
     private LocalDateTime updatedTime;
     @NonNull
     @TableField("deadline")
-    private LocalDateTime deadline;
+    private ZonedDateTime deadline;
     @NonNull
     private String description;
     @NonNull

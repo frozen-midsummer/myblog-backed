@@ -17,11 +17,11 @@ CREATE TABLE users (
 )
 
 CREATE TABLE china_city_code (
-    name VARCHAR(255) NOT NULL,
+    name CHAR(255) NOT NULL,
     ad_code int NOT NULL,
     city_code int,
     PRIMARY KEY (ad_code)
-)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE user_info (
     id BIGINT NOT NULL,

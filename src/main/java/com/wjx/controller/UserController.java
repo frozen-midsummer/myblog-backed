@@ -19,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.ZoneId;
+
 @RestController
 @RequestMapping("/user")
 public class UserController extends BaseService {
@@ -43,12 +45,16 @@ public class UserController extends BaseService {
     }
 
     @PostMapping("/modify")
-    public ResponseEntity<ApiResult<UserInfoDTO>> modify(@RequestBody UserInfoUpdateCmd updateCmd) throws Exception {
+    public ResponseEntity<ApiResult<UserInfoDTO>> modify(@RequestBody UserInfoUpdateCmd updateCmd) {
+        UserInfoDO userInfoDO1 = userInfoMapper.selectById(LongUtil.convertStr2Long(updateCmd.getId()));
+        if (!updateCmd.getUsername().equals(userInfoDO1.getUsername()) && userService.usernameExist(updateCmd.getUsername())) {
+            return ResponseEntity.ok(fail(100001, String.format("用户名[%s]已存在", updateCmd.getUsername())));
+        }
         UserInfoDO userInfoDO = new UserInfoDO();
         userInfoDO.setId(LongUtil.convertStr2Long(updateCmd.getId()));
         userInfoDO.setUsername(updateCmd.getUsername());
         userInfoDO.setSex(updateCmd.getSex());
-        userInfoDO.setBirthday(updateCmd.getBirthday());
+        userInfoDO.setBirthday(updateCmd.getBirthday().withZoneSameInstant(ZoneId.of("Asia/Shanghai")));
         userInfoDO.setLocation(updateCmd.getLocation());
         userInfoDO.setDescription(updateCmd.getDescription());
         userInfoDO.setFeelings(updateCmd.getFeelings());

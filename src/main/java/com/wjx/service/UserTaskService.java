@@ -5,12 +5,13 @@ import com.wjx.dto.UserTaskUpdateCmd;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @Service
 public class UserTaskService {
     public void ModifyTask(UserTaskDO userTaskDO, UserTaskUpdateCmd updateCmd) {
         userTaskDO.setUpdatedTime(LocalDateTime.now());
-        userTaskDO.setDeadline(updateCmd.getDeadline().plusHours(8L));
+        userTaskDO.setDeadline(updateCmd.getDeadline().withZoneSameInstant(ZoneId.of("Asia/Shanghai")));
         userTaskDO.setDescription(updateCmd.getDescription());
         userTaskDO.setAlarm(updateCmd.getAlarm());
     }

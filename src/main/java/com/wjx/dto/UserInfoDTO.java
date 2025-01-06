@@ -5,6 +5,7 @@ import com.wjx.common.dto.DTO;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 
 @Data
 public class UserInfoDTO extends DTO {
@@ -12,7 +13,7 @@ public class UserInfoDTO extends DTO {
     private Long id;
     private String username;
     private String sex;
-    private LocalDate birthday;
+    private ZonedDateTime birthday;
     private String location;
     private String skills;
     private String feelings;

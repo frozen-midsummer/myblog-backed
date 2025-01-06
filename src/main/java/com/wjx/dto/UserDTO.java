@@ -6,8 +6,5 @@ import lombok.NonNull;
 
 @Data
 public class UserDTO extends DTO {
-    @NonNull
     private String username;
-    @NonNull
-    private String password;
 }

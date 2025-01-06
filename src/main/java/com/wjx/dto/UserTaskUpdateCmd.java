@@ -4,10 +4,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+
 @Data
 public class UserTaskUpdateCmd {
     private String taskId;
-    private LocalDateTime deadline;
+    private ZonedDateTime deadline;
     private String description;
     private String alarm;
 }

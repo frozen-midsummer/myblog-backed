@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 
 @Data
 @TableName("user_info")
@@ -13,7 +14,7 @@ public class UserInfoDO {
     private Long id;
     private String username;
     private String sex;
-    private LocalDate birthday;
+    private ZonedDateTime birthday;
     private String location;
     private String skills;
     private String feelings;

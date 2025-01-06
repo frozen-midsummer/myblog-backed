@@ -5,6 +5,7 @@ import com.wjx.common.dto.DTO;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Data
 public class UserTaskDTO extends DTO {
@@ -13,7 +14,7 @@ public class UserTaskDTO extends DTO {
     private String username;
     private LocalDateTime createdTime;
     private LocalDateTime updatedTime;
-    private LocalDateTime deadline;
+    private ZonedDateTime deadline;
     private String description;
     private String alarm;
 }
