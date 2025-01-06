@@ -38,7 +38,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             return;
         }
         // 给其他复杂请求跨域
-        if (Arrays.asList("POST").contains(request.getMethod())) {
+        if (Arrays.asList("POST", "GET").contains(request.getMethod())) {
             response.setHeader("Access-Control-Allow-Origin", "*");
             response.setHeader("Access-Control-Allow-Headers", "*");
         }

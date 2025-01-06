@@ -5,9 +5,9 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Data
-public class RegisterCmd {
+public class UserInfoUpdateCmd {
+    private String id;
     private String username;
-    private String password;
     private String sex;
     private LocalDate birthday;
     private String location;

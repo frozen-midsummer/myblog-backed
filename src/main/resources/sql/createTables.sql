@@ -22,3 +22,15 @@ CREATE TABLE china_city_code (
     city_code int,
     PRIMARY KEY (ad_code)
 )
+
+CREATE TABLE user_info (
+    id BIGINT NOT NULL,
+    username VARCHAR(30) NOT NULL,
+    sex VARCHAR(1) NOT NULL,
+    birthday date,
+    location VARCHAR(255),
+    skills VARCHAR(255),
+    feelings VARCHAR(255),
+    description VARCHAR(255),
+    PRIMARY KEY (id)
+)
